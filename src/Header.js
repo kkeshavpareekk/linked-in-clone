@@ -9,14 +9,14 @@ import {
   Chat,
   Notifications,
 } from "@mui/icons-material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "./features/userSlice";
 import { auth } from "./firebase";
 import { signOut } from "firebase/auth";
 
 const Header = () => {
-  
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
 
   const logoutofApp = () => {
     dispatch(logout());
@@ -42,7 +42,11 @@ const Header = () => {
         <HeaderOption Icon={BusinessCenter} title="Jobs" />
         <HeaderOption Icon={Chat} title="Messaging" />
         <HeaderOption Icon={Notifications} title="Notifications" />
-        <HeaderOption click={logoutofApp} avatar={true} title="logout" />
+        <HeaderOption
+          click={logoutofApp}
+          avatar={true}
+          title={user ? "logout" : "login"}
+        />
       </div>
     </div>
   );
